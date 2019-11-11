@@ -1,4 +1,4 @@
-import sys, os
+import sys, os, signal
 import re
 import time, datetime
 import requests
@@ -17,6 +17,14 @@ oldestEvent     = 0
 newestEvent     = 0
 useExample      = False
 
+def handler(signum = None, frame = None):
+    print('Exiting')
+    exit(1)
+
+# Exit signal handler
+for sig in [signal.SIGTERM, signal.SIGINT, signal.SIGHUP, signal.SIGQUIT]:
+    signal.signal(sig, handler)
+
 # Use log file passed in as an argument
 try:
   logFile = sys.argv[1]
@@ -34,14 +42,14 @@ if '' == logFile:
       f.write(r.text)
   except:
     print('Failed to get example log. Exiting.')
-    exit(1)
+    exit(2)
 
 # Open log file
 try:
   logObj = open(logFile, 'r')
 except:
   print('File '+logFile+' does not exist')
-  exit(2)
+  exit(3)
 
 # Count rows in the log file
 for logRowCount, logRow in enumerate(logObj):
