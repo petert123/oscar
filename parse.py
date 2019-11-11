@@ -4,12 +4,12 @@ import time, datetime
 import requests
 
 # Defaults
-logFile              = ''
 sampleLogUrl         = 'https://raw.githubusercontent.com/elastic/examples/master/Common%20Data%20Formats/nginx_logs/nginx_logs'
 responseCodePosition = 5
 datePosition         = 3
 
 # Initialize
+logFile         = ''
 successCount    = 0
 responseCounts  = [0 for i in range(6)]
 responsePercent = [0 for i in range(6)]
